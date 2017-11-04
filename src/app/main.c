@@ -4,11 +4,29 @@
 #include <string.h>
 #include <sys/wait.h>
 
+#include "iot_import.h"
+#include "iot_export.h"
+
+#include <sqlite3.h>
+
 #include "../sensor/inc/process_sensor.h"
 #include "../led_screen/inc/process_led_screen.h"
 
 int main(void) {
 
+	iotx_mqtt_param_t mqtt_params;
+
+	/* Construct a MQTT client with specify parameter */
+	 IOT_MQTT_Construct(&mqtt_params);
+
+
+	   char sql[128];
+	    sqlite3 *db;
+	    FILE *fd;
+
+	   int rc= sqlite3_open("test.db", &db);  //打开（或新建）一个数据库
+
+	////
 	pid_t fpid_sensor;
 	pid_t fpid_led_screen;
 
